@@ -1,14 +1,16 @@
 package com.coocit.controller;
 
+import com.coocit.controller.request.SendCodeRequest;
+import com.coocit.enums.BizCodeEnum;
+import com.coocit.enums.SendCodeEnum;
 import com.coocit.service.NotifyService;
 import com.coocit.utils.CommonUtil;
+import com.coocit.utils.JsonData;
 import com.google.code.kaptcha.Producer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
@@ -79,6 +81,30 @@ public class NotifyController {
         String key = "account-service:captcha:" + CommonUtil.MD5(ip + userAgent);
         log.info("验证码key:{}", key);
         return key;
+    }
+
+    /**
+     * 发送短信验证码
+     * @return
+     */
+    @PostMapping("send_code")
+    public JsonData sendCode(@RequestBody SendCodeRequest sendCodeRequest, HttpServletRequest request){
+
+        String key = getCaptchaKey(request);
+
+        String cacheCaptcha = redisTemplate.opsForValue().get(key);
+
+        String captcha = sendCodeRequest.getCaptcha();
+
+        if(captcha!=null && cacheCaptcha !=null && cacheCaptcha.equalsIgnoreCase(captcha)){
+            //成功
+            redisTemplate.delete(key);
+            JsonData jsonData = notifyService.sendCode(SendCodeEnum.USER_REGISTER,sendCodeRequest.getTo());
+            return jsonData;
+        }else {
+            return JsonData.buildResult(BizCodeEnum.CODE_CAPTCHA_ERROR);
+        }
+
     }
 
 
