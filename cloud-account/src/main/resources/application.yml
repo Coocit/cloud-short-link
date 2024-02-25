@@ -28,3 +28,7 @@ spring:
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+sms:
+  app-code: 5fbfb49511d44247a62f974f37e8e03d
+  template-id: JM1000372
