@@ -1,9 +1,9 @@
 server:
-  port: 8081
+  port: 8084
 
 spring:
   application:
-    name: cloud-account
+    name: cloud-shop
 
 # 服务注册发现
   cloud:
