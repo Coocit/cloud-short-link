@@ -45,6 +45,15 @@ mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
+# 短信配置
 sms:
   app-code: 5fbfb49511d44247a62f974f37e8e03d
   template-id: JM1000372
+
+# 阿里云OSS配置
+aliyun:
+    oss:
+      endpoint: #
+      access-key-id: #
+      access-key-secret: #
+      bucketname: #
