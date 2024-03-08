@@ -13,11 +13,13 @@ public class IDUtil {
 
     /**
      * 雪花算法生成器
+     *
      * @return
      */
-    public static   Comparable<?> geneSnowFlakeID(){
+    public static Comparable<?> geneSnowFlakeID() {
 
         return shardingKeyGenerator.generateKey();
+
     }
 
 }
