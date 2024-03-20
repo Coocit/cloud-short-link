@@ -19,17 +19,17 @@ public class JWTUtil {
     /**
      * 主题
      */
-    private static final String SUBJECT = "xdclass";
+    private static final String SUBJECT = "coocit";
 
     /**
      * 加密密钥
      */
-    private static final String SECRET = "xdclass.net168";
+    private static final String SECRET = "coocit.com";
 
     /**
      * 令牌前缀
      */
-    private static final String TOKNE_PREFIX = "dcloud-link";
+    private static final String TOKNE_PREFIX = "cloud-link";
 
 
     /**
