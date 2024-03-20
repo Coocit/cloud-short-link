@@ -16,12 +16,12 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
  * @description:
  */
 public class MyBatisPlusGenerator {
-    private static String DataBaseName = "cloud_account";
+    private static String DataBaseName = "cloud_link";
     private static String Url = "jdbc:mysql://47.99.139.126:3306/" + DataBaseName + "?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true";
     private static String DriverName = "com.mysql.cj.jdbc.Driver";
     private static String Username = "root";
     private static String Password = "Root0000";
-    private static String projectPath = "E:\\workspace\\Java_workspace\\cloud-short-link\\cloud-account";
+    private static String projectPath = "E:\\workspace\\create_code\\cloud-link";
 
     public static void main(String[] args) {
         // 1、代码生成器
@@ -96,9 +96,8 @@ public class MyBatisPlusGenerator {
 //                .setSuperEntityColumns()
                 // 生成的表，支持多表一起生成
                 .setInclude(
-                        "account",
-                        "traffic",
-                        "traffic_task"
+                        "link_group",
+                        "short_link"
                 );
 
         mpg.setStrategy(strategy);
