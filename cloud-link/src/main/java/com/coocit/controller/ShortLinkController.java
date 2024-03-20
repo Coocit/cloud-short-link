@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2024-03-20
  */
 @RestController
-@RequestMapping("/short-link-do")
+@RequestMapping("/api/link/v1")
 public class ShortLinkController {
 
 }

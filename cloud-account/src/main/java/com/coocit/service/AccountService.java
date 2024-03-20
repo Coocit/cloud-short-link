@@ -14,7 +14,7 @@ import com.coocit.utils.JsonData;
  * @author Coocit
  * @since 2024-02-25
  */
-public interface AccountService extends IService<AccountDO> {
+public interface AccountService {
 
     /**
      * 用户注册

@@ -41,7 +41,7 @@ import java.util.List;
  */
 @Slf4j
 @Service
-public class AccountServiceImpl extends ServiceImpl<AccountMapper, AccountDO> implements AccountService {
+public class AccountServiceImpl implements AccountService {
 
     @Autowired
     private NotifyService notifyService;

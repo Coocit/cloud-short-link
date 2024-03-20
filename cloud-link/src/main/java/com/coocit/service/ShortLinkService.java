@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author Coocit
  * @since 2024-03-20
  */
-public interface ShortLinkService extends IService<ShortLinkDO> {
+public interface ShortLinkService {
 
 }

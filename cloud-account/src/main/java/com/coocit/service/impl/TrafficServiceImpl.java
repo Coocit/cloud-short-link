@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2024-02-25
  */
 @Service
-public class TrafficServiceImpl extends ServiceImpl<TrafficMapper, TrafficDO> implements TrafficService {
+public class TrafficServiceImpl implements TrafficService {
 
 }

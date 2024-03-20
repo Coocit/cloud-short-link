@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author Coocit
  * @since 2024-02-25
  */
-public interface TrafficService extends IService<TrafficDO> {
+public interface TrafficService {
 
 }
