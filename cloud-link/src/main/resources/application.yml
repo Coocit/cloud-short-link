@@ -22,13 +22,39 @@ spring:
   shardingsphere:
     datasource:
       # 数据源名称
-      names: ds0
+      names: ds0,ds1,dsa
       # 数据源配置
       ds0:
         connectionTimeoutMilliseconds: 30000
         driver-class-name: com.mysql.cj.jdbc.Driver
         idleTimeoutMilliseconds: 60000
-        jdbc-url: jdbc:mysql://47.99.139.126:3306/cloud_link?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+        jdbc-url: jdbc:mysql://47.99.139.126:3306/cloud_link_0?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+        maintenanceIntervalMilliseconds: 30000
+        maxLifetimeMilliseconds: 1800000
+        maxPoolSize: 50
+        minPoolSize: 50
+        username: root
+        password: Root0000
+        type: com.zaxxer.hikari.HikariDataSource
+      # 数据源配置
+      ds1:
+        connectionTimeoutMilliseconds: 30000
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        idleTimeoutMilliseconds: 60000
+        jdbc-url: jdbc:mysql://47.99.139.126:3306/cloud_link_1?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+        maintenanceIntervalMilliseconds: 30000
+        maxLifetimeMilliseconds: 1800000
+        maxPoolSize: 50
+        minPoolSize: 50
+        username: root
+        password: Root0000
+        type: com.zaxxer.hikari.HikariDataSource
+      # 数据源配置
+      dsa:
+        connectionTimeoutMilliseconds: 30000
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        idleTimeoutMilliseconds: 60000
+        jdbc-url: jdbc:mysql://47.99.139.126:3306/cloud_link_a?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
         maintenanceIntervalMilliseconds: 30000
         maxLifetimeMilliseconds: 1800000
         maxPoolSize: 50
@@ -43,6 +69,7 @@ spring:
 
     sharding:
       tables:
+        # link_group 表
         link_group:
           # id生成策略
           key-generator:
@@ -51,6 +78,33 @@ spring:
             props:
               worker:
                 id: ${workId}
+          # 先进行水平分库，然后再水平分表
+          database-strategy:
+            inline:
+              sharding-column: account_no
+              algorithm-expression: ds$->{account_no % 2}
+        # short_link 表
+        short_link:
+          # id生成策略
+          key-generator:
+            column: id
+            type: SNOWFLAKE
+            props:
+              worker:
+                id: ${workId}
+          actual-data-nodes: ds0.short_link,ds1.short_link,dsa.short_link
+          # 水平分库
+          database-strategy:
+            standard:
+              sharding-column: code
+              precise-algorithm-class-name: com.coocit.strategy.CustomDBPreciseShardingAlgorithm
+          # 水平分表
+          table-strategy:
+            standard:
+              sharding-column: code
+              precise-algorithm-class-name: com.coocit.strategy.CustomTablePreciseShardingAlgorithm
+
+
 
   # 数据库配置
 #  datasource:
